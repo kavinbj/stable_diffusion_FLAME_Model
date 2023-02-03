@@ -18,3 +18,11 @@ Stable Diffusion基于Latent Diffusion Models，专门用于文图生成任务�
 
 
 ![structure](https://pic2.zhimg.com/80/v2-691cbd5fe5c322a3b39b3ac2c3af2de5_1440w.webp)
+
+
+### Deploying Transformers on the Apple Neural Engine
+https://machinelearning.apple.com/research/neural-engine-transformers
+
+### Core ML Stable Diffusion
+Run Stable Diffusion on Apple Silicon with Core ML
+https://github.com/apple/ml-stable-diffusion

@@ -1,6 +1,6 @@
 # my_stable_diffusion and AI Metaverse
 
-
+# 1、Stable Diffusion
 ### Diffusion 解读
 
 Stable Diffusion基于Latent Diffusion Models，专门用于文图生成任务。
@@ -27,6 +27,27 @@ https://machinelearning.apple.com/research/neural-engine-transformers
 Run Stable Diffusion on Apple Silicon with Core ML
 https://github.com/apple/ml-stable-diffusion
 
+# 2、3D人脸重构
+### 基于FLAME的三维人脸重建技术总结
+https://zhuanlan.zhihu.com/p/591136896
+
+DECA：Learning an Animatable Detailed 3D Face Model from In-The-Wild Images
+既然FLAME可微，那就直接把FLAME当作网络中间的一部分，让网络直接根据输入去预测FLAME模型的参数。下面是整体的框架：
+![DECA structure](https://pic2.zhimg.com/80/v2-4c6f14dc6d092ddda4aa91da520bf67d_1440w.webp)
+
+输入是单张图片：
+
+1. 经过两个不同的encoder和mapping网络，得到一系列的7个参数，包括：camera code, albedo code, light code, shape code, pose code, expression code, detail code；
+2. albedo code经过decoder生成texture；
+3. light code经过decoder得到光照系数；
+4. shape code, pose code, expression code经过FLAME模型得到一个粗糙的人脸mesh表示；
+5. detail code经过decoder得到一个更精细化的mesh偏移作用在FLAME的输出上，得到一个更精细化的人脸表示（为了建模人脸上的皱纹等细节）；
+6. 将texture、光照系数、mesh带入进行可微渲染，得到渲染图片；
+7. 在渲染图片上和原始图片进行比较，计算各种loss function，包括关键点的loss、图像的loss等等；
+
+DECA的改进：EMOCA以及MICA
+
+在最近的DECA、EMOCA、MICA工作上我们看到计算机通过单张图片还原人头已经达到了一个非常不错的效果，也相信后续还有更多有意思的任务可以被深度学习来解锁，比如：基于FLAME精确的face tracking；多张图片合成更精细的人头；FLAME和diffusion model的结合；等等。
 
 
 ### AI元宇宙敲门砖【1】：可微神经渲染助力虚拟物体创造
@@ -76,3 +97,5 @@ https://aistudio.baidu.com/aistudio/projectdetail/3955253?channelType=0&channel=
 
 ### AI元宇宙敲门砖【3.2】：太好听了吧，和AI一起唱，一起做虚拟偶像
 https://aistudio.baidu.com/aistudio/projectdetail/4596296?channelType=0&channel=0
+
+
